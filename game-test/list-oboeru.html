@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+    <title>覚える科目リスト</title>
+    <meta name="description" content="基本情報技術者試験の勉強をするためのsararilfyの自作ゲームです。">
+    <meta name="robots" content="noindex" />
+    <meta name="author" content="sararilfy">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="icon.png" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.11.5/vue.min.js"></script>
+    </head>
+    <body>
+
+        <!-- Place your content here -->
+        <div id="contents_wrap">
+            <section>
+                <h1 class="al_center fz_150">科目一覧</h1>
+                <ul id="kamoku_menu">
+                    <li v-repeat="items"><a href="oboeru{{page}}.html#home">{{page}}<span>{{title}}</span></a></li>
+                </ul>
+            </section>
+            <aside>
+                <a href="menu.html" class="btn gray">&lt;&lt;&nbsp;トップメニュー</a>
+            </aside>
+        </div>
+
+        <!-- SCRIPTS -->
+        <script>
+            var vm =new Vue({
+                el: '#kamoku_menu',
+                data:{
+                    items: [
+                        { page: '1-46', title: 'IE' },
+                        { page: '1-47', title: '会計・財務' },
+                        { page: '1-48', title: '知的財産権' },
+                        { page: '1-49', title: 'IT関連法規' },
+                        { page: '1-50', title: '標準化関連' },
+                        { page: '2-1', title: 'ハードウェア' },
+                        { page: '2-2', title: 'ソフトウェア' },
+                        { page: '2-3', title: 'データベース' },
+                        { page: '2-4', title: 'ネットワーク' },
+                        { page: '2-5', title: '情報セキュリティ' }
+                    ]
+                }
+            });
+        </script>
+    </body>
+</html>
+
+

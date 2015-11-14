@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <title>バトル</title>
+        <meta name="description" content="基本情報技術者試験の勉強をするためのsararilfyの自作ゲームです。">
+        <meta name="robots" content="noindex" />
+        <meta name="author" content="sararilfy">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="apple-touch-icon" href="icon.png" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.11.5/vue.min.js"></script>
+        <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="app-battle.js"></script>
+    </head>
+    <body>
+        <!-- 音楽読み込み -->
+        <audio preload="auto" id="bgm">
+            <source src="music/game_maoudamashii_2_boss06.mp3" type="audio/mp3">
+            <source src="music/game_maoudamashii_2_boss06.ogg" type="audio/ogg">
+        </audio>
+        <audio preload="auto" id="win">
+            <source src="music/game_maoudamashii_5_town24.mp3" type="audio/mp3">
+            <source src="music/game_maoudamashii_5_town24.ogg" type="audio/ogg">
+        </audio>
+        <audio preload="auto" id="lose">
+            <source src="music/game_maoudamashii_6_dangeon23.mp3" type="audio/mp3">
+            <source src="music/game_maoudamashii_6_dangeon23.ogg" type="audio/ogg">
+        </audio>
+
+        <!-- content start -->
+        <div id="contents_wrap">
+            <!-- バトルエリア -->
+            <table id="battle_area">
+                <tr><td>HP&nbsp;<meter min="0" value="" max="" id="enemy_meter"></meter></td><td class="al_right">HP&nbsp;<meter min="0" value="" max="" id="my_meter"></meter></td></tr>
+                <tr><td id="judgment_enemy"></td><td id="judgment_my" class="al_right"></td></tr>
+                <tr><td class="al_left"><img src="image/attack.svg" alt="攻撃！" id="enemy_attacked" /><img src="image/enemy.svg" alt="敵" id="enemy" /></td>
+                    <td class="al_right"><img src="image/attack.svg" alt="攻撃！" id="my_attacked" /><img src="image/my.svg" alt="自分" id="my" /></td></tr>
+            </table>
+            <!-- 動的に表示する部分 -->
+            <div id="main">
+                <section  v-repeat="items" id="questions{{$index}}" class="panel">
+                    <h1 class="al_center">{{category}}</h1>
+                    <h2><span>{{title}}</span></h2>
+                    <ul>
+                        <li><a href="#questions{{$index+1}}" v-on="click: onClick" class="{{collect == 'answer1' ? 'collect' : ''}}">{{answer1}}</a></li>
+                        <li><a href="#questions{{$index+1}}" v-on="click: onClick" class="{{collect == 'answer2' ? 'collect' : ''}}">{{answer2}}</a></li>
+                        <li><a href="#questions{{$index+1}}" v-on="click: onClick" class="{{collect == 'answer3' ? 'collect' : ''}}">{{answer3}}</a></li>
+                        <li><a href="#questions{{$index+1}}" v-on="click: onClick" class="{{collect == 'answer4' ? 'collect' : ''}}">{{answer4}}</a></li>
+                    </ul>
+                </section>
+                <!-- 初期画面 -->
+                <div id="home" class="panel">
+                    <a href="#questions0" id="start">START</a>
+                </div>
+                <!-- 終了画面 -->
+                <div id="questions2" class="panel">
+                    問題が切れました。
+                </div>
+            </div>
+            <!-- 正解・不正解表示部分 -->
+            <div id="view_answer_maru">◯</div>
+            <div id="view_answer_batsu">✕</div>
+
+            <!-- フッター -->
+            <footer id="footer"><table><tr><td><a href="menu.html" class="btn gray dib">&gt;&gt;&nbsp;トップメニュー</a></td><td id="copy">&copy;sararilfy&nbsp;&nbsp;音楽:魔王魂</td></tr></table></footer>
+        <!-- content end --></div>
+        <script>
+            new Vue({
+                el: '#main',
+                data: {
+                    items: [
+                        {
+                            category: '1-1 著作権',
+                            title: 'ヒストグラムを説明したものはどれか',
+                            answer1: '原因と結果の関連を魚の骨のような形態に整理して体系的にまとめ，結果に対してどのような原因が関連しているかを明確にする',
+                            answer2: '時系列的に発生するデータのばらつきを折れ線グラフで表し，管理限界線を利用して客観的に管理する',
+                            answer3: '収集したデータを幾つかの区間に分類し，各区間に属するデータの個数を棒グラフとして描き，ばらつきをとらえる',
+                            answer4: 'データを幾つかの項目に分類し，出現頻度の大きさの順に棒グラフとして並べ，累積和を折れ線グラフで描き，問題点を絞り込む',
+                            collect: 'answer3'
+                        },
+                        {
+                            category: '1-1 著作権',
+                            title: '著作権法に照らして適法な行為はどれか',
+                            answer1: 'ある自社製品のパンフレットで使用しているスポーツ選手の写真を，撮影者に無断で，ほかの自社製品のパンフレットに使用する',
+                            answer2: '経済白書の記載内容を説明の材料として，出所を明示してWebページに転載する',
+                            answer3: '新聞の写真をスキャナで取り込んで，提案書に記載する',
+                            answer4: 'ユーザ団体の研究会のように限られた対象者に対し，雑誌の記事をコピーして配布する',
+                            collect: 'answer2'
+                        }
+                    ]
+                },
+                methods: {
+                    onClick: function (e) {
+                        if(e.target.className == 'collect'){
+                            // 正解した時
+                            $view_answer_maru.css('display', 'block'); // ◯を表示
+                            setTimeout(function(){
+                                $view_answer_maru.css('display', 'none');
+                            },1000);
+                            damageEnemy(); // 敵にダメージ
+                        } else {
+                            // 何も起きない不正解
+                            $view_answer_batsu.css('display', 'block'); // ✕を表示
+                            setTimeout(function(){
+                                $view_answer_batsu.css('display', 'none');
+                            },1000);
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
+
+

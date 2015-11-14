@@ -1,0 +1,256 @@
+@charset "UTF-8";
+/*
+ * Reset
+ */
+@import url(normalize.css);
+ul, li, ol {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+/*
+ * Common
+ */
+/* text-align */
+.al_center {
+  text-align: center;
+}
+
+.al_left {
+  text-align: left;
+}
+
+.al_right {
+  text-align: right;
+}
+
+/* font-size */
+.fz_150 {
+  font-size: 150%;
+}
+
+/* margin */
+.mr-10 {
+  margin: 0 10px 0 0;
+}
+
+/* display */
+.dib {
+  display: inline-block;
+}
+
+/* layout */
+#contents_wrap {
+  padding: 15px;
+}
+
+#main {
+  position: relative;
+  padding: 15px 0 0;
+}
+
+#footer {
+  bottom: 10px;
+  font-size: 80%;
+  position: absolute;
+}
+
+#copy {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* parts */
+.btn {
+  border: 1px solid #000;
+  border-radius: 9px;
+  font-size: 90%;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+.gray {
+  background: #eee;
+}
+
+/*
+ * Contents
+ */
+/* Top Menu */
+#top_menu {
+  margin: 0 auto;
+  width: 270px;
+}
+#top_menu a {
+  display: block;
+}
+#top_menu li:first-child {
+  margin: 0 0 15px;
+}
+
+/* Oboeru List */
+#kamoku_menu li {
+  border: 1px solid #000;
+  border-radius: 9px;
+  font-weight: bold;
+  margin: 0 0 15px;
+  padding: 15px;
+}
+#kamoku_menu li span {
+  display: block;
+  font-size: 120%;
+}
+#kamoku_menu li:last-child {
+  margin: 0 0 40px;
+}
+#kamoku_menu a {
+  display: block;
+}
+
+/* 覚える */
+.panel {
+  min-width: 100%;
+  height: 98%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  margin-top: -150%;
+  min-height: 525px;
+  opacity: 0;
+  z-index: 2;
+  -webkit-transition: opacity .3s ease-in-out;
+  transition: opacity .3s ease-in-out;
+}
+
+.panel:target {
+  opacity: 1;
+  margin-top: 0%;
+}
+
+
+/* battle */
+table {
+  width: 100%;
+}
+
+td, th {
+  vertical-align: bottom;
+}
+
+#my, #enemy {
+  width: 50%;
+  height: 60px;
+}
+
+#enemy {
+  height: 70px;
+}
+
+#enemy_attacked,
+#my_attacked {
+  display: none;
+  position: absolute;
+  width: 30%;
+}
+
+#battle_area {
+  position: relative;
+}
+
+#view_answer_maru, #view_answer_batsu {
+  color: red;
+  display: none;
+  font-size: 2080%;
+  text-align: center;
+  opacity: 0.8;
+  position: absolute;
+  width: 100%;
+}
+
+#view_answer_batsu {
+  color: blue;
+}
+
+#judgment_enemy,
+#judgment_my {
+  padding: 5px 0;
+}
+
+#home {
+  padding: 20px 0 0;
+}
+#home a {
+  border: 1px solid #000;
+  border-radius: 9px;
+  display: block;
+  font-size: 150%;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+
+#main section h1 {
+  font-size: 80%;
+  margin: 0 0 5px;
+}
+#main section h2 {
+  background: #eee;
+  border-radius: 9px;
+  font-size: 95%;
+  margin: 0 0 10px;
+  padding: 5px 10px;
+}
+#main section h2 span:before {
+  content: "Q";
+  background: #ccc;
+  border-radius: 35px;
+  padding: 3px 4px;
+}
+#main section ul li {
+  border: 1px solid #000;
+  border-radius: 9px;
+  font-size: 95%;
+  font-weight: bold;
+  margin: 0 0 5px;
+  padding: 10px;
+}
+#main section ul li:last-child {
+  margin: 0 0 40px;
+}
+#main section ul a {
+  display: block;
+}
+
+.batanq, .yatta {
+  color: lightblue;
+  font-weight: bold;
+  text-shadow: 2px 2px 1px rgba(0, 0, 255, 0.8), -2px 2px 1px rgba(0, 0, 255, 0.8), 2px -2px 1px rgba(0, 0, 255, 0.8), -2px -2px 1px rgba(0, 0, 255, 0.8);
+}
+
+.yatta {
+  color: pink;
+  text-shadow: 2px 2px 1px rgba(255, 20, 147, 0.8), -2px 2px 1px rgba(255, 20, 147, 0.8), 2px -2px 1px rgba(255, 20, 147, 0.8), -2px -2px 1px rgba(255, 20, 147, 0.8);
+}
+
+
+#contents_wrap {
+  position: relative;
+}
+#main {
+  min-height: 525px;
+}
+#footer {
+  z-index: 2;
+}
+
+
+/*# sourceMappingURL=style.css.map */

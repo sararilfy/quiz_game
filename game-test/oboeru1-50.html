@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <title>覚える</title>
+        <meta name="description" content="基本情報技術者試験の勉強をするためのsararilfyの自作ゲームです。">
+        <meta name="robots" content="noindex" />
+        <meta name="author" content="sararilfy">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="apple-touch-icon" href="icon.png" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.11.5/vue.min.js"></script>
+        <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <body>
+
+        <!-- Place your content here -->
+        <div id="contents_wrap">
+            <section>
+                <!-- 動的に表示する部分 -->
+                <div id="main">
+                    <section  v-repeat="items" id="questions{{$index}}" class="panel">
+                        <h1 class="al_center fz_150">{{category}}</h1>
+                        <h2><span>{{title}}</span></h2>
+                        <ul>
+                            <li><a href="#questions{{$index}}" v-on="click: onClick" class="{{collect == 'answer1' ? 'collect' : ''}}">{{answer1}}</a></li>
+                            <li><a href="#questions{{$index}}" v-on="click: onClick" class="{{collect == 'answer2' ? 'collect' : ''}}">{{answer2}}</a></li>
+                            <li><a href="#questions{{$index}}" v-on="click: onClick" class="{{collect == 'answer3' ? 'collect' : ''}}">{{answer3}}</a></li>
+                            <li><a href="#questions{{$index}}" v-on="click: onClick" class="{{collect == 'answer4' ? 'collect' : ''}}">{{answer4}}</a></li>
+                        </ul>
+                        <div class="btn_question_next"><a href="#questions{{$index+1}}" class="btn">次へ&nbsp;&gt;&gt;</a></div>
+                    </section>
+                    <div id="home" class="panel">
+                        <a href="#questions0" id="btn_start">START</a>
+                    </div>
+                    <div id="questions2" class="panel">
+                        おわり！
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- フッター -->
+            <footer id="footer"><table><tr><td>
+                <a href="list-oboeru.html" class="btn gray dib">&gt;&gt;&nbsp;科目一覧</a>
+                <a href="menu.html" class="btn gray mr-10 dib">&gt;&gt;&nbsp;トップメニュー</a></td><td id="copy">&copy;sararilfy&nbsp;&nbsp;音楽:魔王魂</td></tr></table></footer>
+
+
+        </div>
+
+        <!-- ここからSCRIPTS -->
+        <script>
+            new Vue({
+                el: '#main',
+                data: {
+                    items: [
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'ISO9000シリーズとは？',
+                            answer1: '企業の品質保証体制に関する複数の国際規格の総称',
+                            answer2: '国際間の取引をスムーズにするために共通の基準を決めるということ',
+                            answer3: 'ISO規格に沿って会社内にシステムを構築すること',
+                            answer4: 'International Organization for Standardization（国際標準化機構）のこと',
+                            collect: 'answer1'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'ISOとは？',
+                            answer1: '国際標準化機構 (ISO) と国際電気標準会議 (IEC) の第一合同技術委員会 (Joint Technical Committee 1) のこと',
+                            answer2: '電気、電子関連の分野の国際規格を制定するために設立された国際機関',
+                            answer3: '国際電気通信連合の部門の一つで、通信分野の標準策定を担当する「電気通信標準化部門」',
+                            answer4: '工業や科学技術に関する国際規格を制定するために設立された国際機関',
+                            collect: 'answer4'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'ISO9001とは？',
+                            answer1: '消費者に安全な食品を消費者に届けることを目的とする',
+                            answer2: '顧客に品質のよいモノやサービスを提供すること、つまり『顧客満足』を目的としている',
+                            answer3: '情報の漏洩を防ぐことを目的とする',
+                            answer4: '従業員が安全な労働環境の下で働けるようにすることを目的とする',
+                            collect: 'answer2'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'JTC1とは？',
+                            answer1: '国際標準化機構 (ISO) と国際電気標準会議 (IEC) の第一合同技術委員会 (Joint Technical Committee 1) のこと',
+                            answer2: '電気、電子関連の分野の国際規格を制定するために設立された国際機関',
+                            answer3: '工業や科学技術に関する国際規格を制定するために設立された国際機関',
+                            answer4: '企業の品質保証体制に関する複数の国際規格の総称',
+                            collect: 'answer1'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'JTC1とは？',
+                            answer1: '国際標準化機構 (ISO) と国際電気標準会議 (IEC) の第一合同技術委員会 (Joint Technical Committee 1) のこと',
+                            answer2: '電気、電子関連の分野の国際規格を制定するために設立された国際機関',
+                            answer3: '工業や科学技術に関する国際規格を制定するために設立された国際機関',
+                            answer4: '企業の品質保証体制に関する複数の国際規格の総称',
+                            collect: 'answer1'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'TSVとは？',
+                            answer1: '文字コードの業界規格',
+                            answer2: 'データをカンマで区切って並べたファイル形式の事',
+                            answer3: '区切りがtabのファイル形式。',
+                            answer4: '企業の品質保証体制に関する複数の国際規格の総称',
+                            collect: 'answer3'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'Unicodeとは？',
+                            answer1: '世界各国の文字を統一された文字コードで表現するための企画',
+                            answer2: 'データをカンマで区切って並べたファイル形式の事',
+                            answer3: '区切りがtabのファイル形式。',
+                            answer4: '企業の品質保証体制に関する複数の国際規格の総称',
+                            collect: 'answer1'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: '現在はUCS-◯？',
+                            answer1: 'UCS-1',
+                            answer2: 'UCS-2',
+                            answer3: 'UCS-3',
+                            answer4: 'UCS-4',
+                            collect: 'answer4'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: '拡散UNIXコードとは？?',
+                            answer1: 'Web上で3次元グラフィックスを記述するための言語',
+                            answer2: '主にUNIXで使用するコードであり、英数字は1バイト、感じは2バイトで表現する',
+                            answer3: '区切りがtabのファイル形式',
+                            answer4: 'データをカンマで区切って並べたファイル形式の事',
+                            collect: 'answer2'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'CORBAとは?',
+                            answer1: '異機種間でのオブジェクト管理を統一することを目的とした分散オブジェクトを扱うための標準仕様。',
+                            answer2: 'Web上で3次元グラフィックスを記述するための言語',
+                            answer3: 'データをカンマで区切って並べたファイル形式の事',
+                            answer4: '工業や科学技術に関する国際規格を制定するために設立された国際機関',
+                            collect: 'answer1'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'OMGとは?',
+                            answer1: 'Web上で3次元グラフィックスを記述するための言語',
+                            answer2: '企業の品質保証体制に関する複数の国際規格の総称',
+                            answer3: '異機種間でのオブジェクト管理を統一することを目的とした分散オブジェクトを扱うための標準仕様',
+                            answer4: 'オブジェクト指向技術の普及と標準化を進める非営利団体。',
+                            collect: 'answer4'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'OMTとは?',
+                            answer1: '事業者が業務上取り扱う個人情報を安全で適切に管理するための標準を定めたJIS規格',
+                            answer2: '主にUNIXで使用するコードであり、英数字は1バイト、感じは2バイトで表現する',
+                            answer3: 'ランボーなどにより開発されたオブジェクト指向分析方法',
+                            answer4: '工業や科学技術に関する国際規格を制定するために設立された国際機関',
+                            collect: 'answer3'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'VRMLとは?',
+                            answer1: 'Web上で3次元グラフィックスを記述するための言語',
+                            answer2: 'オブジェクト指向技術の普及と標準化を進める非営利団体',
+                            answer3: 'ランボーなどにより開発されたオブジェクト指向分析方法',
+                            answer4: '企業の品質保証体制に関する複数の国際規格の総称',
+                            collect: 'answer1'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'JIS Q 15001とは?',
+                            answer1: '企業の品質保証体制に関する複数の国際規格の総称',
+                            answer2: '事業者が業務上取り扱う個人情報を安全で適切に管理するための標準を定めたJIS規格',
+                            answer3: 'ISO規格に沿って会社内にシステムを構築すること',
+                            answer4: '企業や団体が地球環境に配慮した事業活動を行うためにISOが規定した国際規格。',
+                            collect: 'answer2'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'ISO14000とは?',
+                            answer1: 'ISO規格に沿って会社内にシステムを構築すること',
+                            answer2: '国際電気通信連合の部門の一つで、通信分野の標準策定を担当する「電気通信標準化部門」',
+                            answer3: '企業や団体が地球環境に配慮した事業活動を行うためにISOが規定した国際規格。',
+                            answer4: '企業の品質保証体制に関する複数の国際規格の総称',
+                            collect: 'answer3'
+                        }
+                        /*
+                        ,
+                        {
+                            category: '1-50 標準化関連',
+                            title: '?',
+                            answer1: '',
+                            answer2: '',
+                            answer3: '',
+                            answer4: '',
+                            collect: 'answer2'
+                        }*/
+                    ]
+                },
+                methods: {
+                    onClick: function (e) {
+                        if(e.target.className == 'collect'){
+                            alert('正解！');
+                        } else {
+                            alert('(´・ω・)乂バツ！！')
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
+
+

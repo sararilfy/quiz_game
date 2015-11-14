@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+    <title>覚える科目リスト</title>
+    <meta name="description" content="基本情報技術者試験の勉強をするためのsararilfyの自作ゲームです。">
+    <meta name="robots" content="noindex" />
+    <meta name="author" content="sararilfy">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="icon.png" />
+    </head>
+    <body>
+
+        <!-- Place your content here -->
+        <div id="contents_wrap">
+            <section>
+                <h1 class="al_center fz_150">科目一覧</h1>
+                <ul id="kamoku_menu">
+                    <li v-repeat="items"><a href="oboeru{{page}}.html">{{page}}<span>{{title}}</span></a></li>
+                </ul>
+            </section>
+            <aside>
+                <a href="menu.html" class="btn gray"><<&nbsp;トップメニューへ戻る</a>
+            </aside>
+        </div>
+
+        <!-- SCRIPTS -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.11.5/vue.min.js"></script>
+        <script>
+            var vm =new Vue({
+                el: '#kamoku_menu',
+                data:{
+                    items: [
+                        { page: '1-1', title: '著作権' },
+                        { page: '1-2', title: '進数変換' },
+                        { page: '1-3', title: 'HTTP' }
+                    ]
+                }
+            });
+        </script>
+    </body>
+</html>
+
+

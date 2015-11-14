@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <title>覚える</title>
+        <meta name="description" content="基本情報技術者試験の勉強をするためのsararilfyの自作ゲームです。">
+        <meta name="robots" content="noindex" />
+        <meta name="author" content="sararilfy">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.11.5/vue.min.js"></script>
+        <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    </head>
+    <body>
+
+        <!-- 音楽 -->
+        <audio preload="auto" id="bgm">
+            <source src="music/game_maoudamashii_2_boss06.mp3" type="audio/mp3">
+            <source src="music/game_maoudamashii_2_boss06.ogg" type="audio/ogg">
+        </audio>
+        <audio preload="auto" id="win">
+            <source src="music/game_maoudamashii_5_town24.mp3" type="audio/mp3">
+            <source src="music/game_maoudamashii_5_town24.ogg" type="audio/ogg">
+        </audio>
+        <audio preload="auto" id="lose">
+            <source src="music/game_maoudamashii_6_dangeon23.mp3" type="audio/mp3">
+            <source src="music/game_maoudamashii_6_dangeon23.ogg" type="audio/ogg">
+        </audio>
+
+        <!-- Place your content here -->
+        <div id="contents_wrap">
+           <section>
+             <!-- バトルエリア -->
+               <table id="battle_area">
+                   <tr><td>HP<meter min="0" value="" max="" id="enemy_meter"></meter></td><td class="al_right">HP<meter min="0" value="" max="" id="my_meter"></meter></td></tr>
+                   <tr><td id="judgment_enemy"></td><td id="judgment_my" class="al_right"></td></tr>
+                   <tr><td class="al_left"><img src="image/attack.svg" alt="攻撃！" id="enemy_attacked" /><img src="image/enemy.svg" alt="敵" id="enemy" /></td>
+                     <td class="al_right"><img src="image/attack.svg" alt="攻撃！" id="my_attacked" /><img src="image/my.svg" alt="自分" id="my" /></td></tr>
+               </table>
+             <!-- スタートボタン -->
+               <div id="start" style="background:#ccc;">START</div>
+               <!-- 仮の正解 -->
+               <div id="btn_answer1">正解</div>
+               <div id="btn_answer2">ふ正解</div>
+               <div id="main_wrap">
+                    <!-- 動的に表示する部分 -->
+                    <div id="main">
+                        <div id="questions">
+                        </div>
+                    </div>
+                    <!-- 正解・不正解表示部分 -->
+                    <div id="view_answer_maru">◯</div>
+                   <div id="view_answer_batsu">✕</div>
+               </div>
+            </section>
+            <aside>
+               <a href="menu.html" class="btn gray dib">&gt;&gt;&nbsp;トップメニューへ戻る</a>
+            </aside>
+            <div id="copy" class="al_center">&copy;sararilfy&nbsp;&nbsp;音楽:魔王魂</div>
+
+
+        </div>
+
+        <!-- ここからSCRIPTS -->
+        <script>
+            $(function(){
+
+                //ここから定数（★ゲーム設定はここ！！★）
+                var $myDamage = 20, // 自分の毎度Damage
+                    $enemyDamage = 20, // 敵の毎度Damage
+                    $damageTime = 500, // 毎度自分Damage時間（ミリ秒）
+                    $myHitPoint = 100, // 初期自分のHPを入れる変数
+                    $enemyHitPoint = 100, // 初期敵のHPを入れる変数
+                    //定数ここまで
+                    $enemy = $('#enemy'), // 敵キャラ
+                    $my = $('#my'), // 自分キャラ
+                    $enemyAttacked = $('#enemy_attacked'), // 敵が受ける攻撃エフェクト
+                    $myAttacked = $('#my_attacked'), // 自分が受ける攻撃エフェクト
+                    $view_answer_maru = $('#view_answer_maru'), // ◯を表示
+                    $view_answer_batsu = $('#view_answer_batsu'), // ✕を表示
+                    $enemy_meter = $('#enemy_meter'), // 敵のHPメーター
+                    $my_meter = $('#my_meter'); // 自分のHPメーター
+
+                // メーターにHPを設定
+                $enemy_meter.attr({'value': $enemyHitPoint,
+                                   'max': $enemyHitPoint
+                                  });
+                $my_meter.attr({'value': $myHitPoint,
+                                   'max': $myHitPoint
+                                  });
+                $enemy_meter.text($enemyHitPoint);
+                $my_meter.text($myHitPoint);
+                // 自分のダメージ処理
+                function damageMy(){
+                    // 自分にアタックじるしを表示
+                    $myAttacked.css('display', 'block');
+                    setTimeout(function(){
+                        $myAttacked.css('display', 'none');
+                    },1000);
+                    // HPを減らす
+                    $myHitPoint = $myHitPoint - $myDamage;
+                    // メーターも減る
+                    $my_meter.attr( 'value', $myHitPoint ).html( $myHitPoint );
+                    // HPが0以下ならばたんきゅー
+                    if ( $myHitPoint <= 0 ){
+                        clearInterval(damager);
+                        $("#bgm").get(0).pause();
+                        $("#lose").get(0).play();
+                        $my.attr('src', 'image/my-batsu.svg');
+                        $('#judgment_my').text('ばたんきゅー');
+                        $('#judgment_enemy').text('やった！');
+                    }
+                }
+
+                // 正解をおした時
+                $('#btn_answer1').on('click', function(){
+                    // ◯を表示
+                    $view_answer_maru.css('display', 'block');
+                    setTimeout(function(){
+                        $view_answer_maru.css('display', 'none');
+                    },1000);
+                    damageEnemy(); // 敵にダメージ
+                });
+                // 敵のダメージ処理（つまり正解）
+                function damageEnemy(){
+                    // 敵にアタックじるしを表示
+                    $enemyAttacked.css('display', 'block');
+                    setTimeout(function(){
+                        $enemyAttacked.css('display', 'none');
+                    },1000);
+                    // HPを減らす
+                    $enemyHitPoint = $enemyHitPoint - $enemyDamage;
+                    // メーターも減る
+                    $enemy_meter.attr( 'value', $enemyHitPoint ).html( $enemyHitPoint );
+                    // HPが0以下ならばたんきゅー
+                    if ( $enemyHitPoint <= 0 ){
+                        clearInterval(damager);
+                        $("#bgm").get(0).pause();
+                        $("#win").get(0).play();
+                        $enemy.attr('src', 'image/enemy-batsu.svg');
+                        $('#judgment_enemy').text('ばたんきゅー');
+                        $('#judgment_my').text('やった！');
+                    }
+
+                }
+
+                // 何も起きない不正解
+                $('#btn_answer2').on('click', function(){
+                    // ✕を表示
+                    $view_answer_batsu.css('display', 'block');
+                    setTimeout(function(){
+                        $view_answer_batsu.css('display', 'none');
+                    },1000);
+                });
+
+                // startを押すと、ダメージ処理始まる
+                $('#start').on('click', function(){
+                    $("#bgm").get(0).play();
+                    damager = setInterval( damageMy, 3000 );
+                });
+
+            });
+        </script>
+    </body>
+</html>
+
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <title>覚える</title>
+        <meta name="description" content="基本情報技術者試験の勉強をするためのsararilfyの自作ゲームです。">
+        <meta name="robots" content="noindex" />
+        <meta name="author" content="sararilfy">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="apple-touch-icon" href="icon.png" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.11.5/vue.min.js"></script>
+        <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <body>
+
+        <!-- Place your content here -->
+        <div id="contents_wrap">
+            <section>
+                <!-- 動的に表示する部分 -->
+                <div id="main">
+                    <section  v-repeat="items" id="questions{{$index}}" class="panel">
+                        <h1 class="al_center fz_150">{{category}}</h1>
+                        <h2><span>{{title}}</span></h2>
+                        <ul>
+                            <li><a href="#questions{{$index}}" v-on="click: onClick" class="{{collect == 'answer1' ? 'collect' : ''}}">{{answer1}}</a></li>
+                            <li><a href="#questions{{$index}}" v-on="click: onClick" class="{{collect == 'answer2' ? 'collect' : ''}}">{{answer2}}</a></li>
+                            <li><a href="#questions{{$index}}" v-on="click: onClick" class="{{collect == 'answer3' ? 'collect' : ''}}">{{answer3}}</a></li>
+                            <li><a href="#questions{{$index}}" v-on="click: onClick" class="{{collect == 'answer4' ? 'collect' : ''}}">{{answer4}}</a></li>
+                        </ul>
+                        <div class="btn_question_next"><a href="#questions{{$index+1}}" class="btn">次へ&nbsp;&gt;&gt;</a></div>
+                    </section>
+                    <div id="home" class="panel">
+                        <a href="#questions0" id="btn_start">START</a>
+                    </div>
+                    <div id="questions2" class="panel">
+                        おわり！
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- フッター -->
+            <footer id="footer"><table><tr><td>
+                <a href="list.html" class="btn gray dib">&gt;&gt;&nbsp;科目一覧</a>
+                <a href="menu.html" class="btn gray mr-10 dib">&gt;&gt;&nbsp;トップメニュー</a></td><td id="copy">&copy;sararilfy&nbsp;&nbsp;音楽:魔王魂</td></tr></table></footer>
+
+
+        </div>
+
+        <!-- ここからSCRIPTS -->
+        <script>
+            new Vue({
+                el: '#main',
+                data: {
+                    items: [
+                        {
+                            category: '1-49 IT関連法規',
+                            title: 'ISMSとは？',
+                            answer1: '異機種間でのオブジェクト管理を統一することを目的とした分散オブジェクトを扱うための標準仕様',
+                            answer2: '工業や科学技術に関する国際規格を制定するために設立された国際機関',
+                            answer3: '企業などの組織が、情報を適切に管理し、機密を守るための包括的な枠組み',
+                            answer4: 'ISO規格に沿って会社内にシステムを構築すること',
+                            collect: 'answer2'
+                        },
+                        {
+                            category: '1-49 IT関連法規',
+                            title: 'PL法で対象となるものは?',
+                            answer1: '加工されていない農林畜水産物',
+                            answer2: 'ソフトウェア・サービスの無体物',
+                            answer3: '不動産',
+                            answer4: '製造あるいは加工されたもの（動産）',
+                            collect: 'answer4'
+                        }
+                        /*
+                        ,
+                        {
+                            category: '1-49 IT関連法規',
+                            title: '?',
+                            answer1: '',
+                            answer2: '',
+                            answer3: '',
+                            answer4: '',
+                            collect: 'answer2'
+                        }*/
+                    ]
+                },
+                methods: {
+                    onClick: function (e) {
+                        if(e.target.className == 'collect'){
+                            alert('正解！');
+                        } else {
+                            alert('(´・ω・)乂バツ！！')
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
+
+

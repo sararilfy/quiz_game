@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <title>バトル</title>
+        <meta name="description" content="基本情報技術者試験の勉強をするためのsararilfyの自作ゲームです。">
+        <meta name="robots" content="noindex" />
+        <meta name="author" content="sararilfy">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="apple-touch-icon" href="icon.png" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.11.5/vue.min.js"></script>
+        <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="app-battle.js"></script>
+    </head>
+    <body>
+        <!-- 音楽読み込み -->
+        <!--
+        <audio preload="auto" id="bgm">
+            <source src="music/game_maoudamashii_2_boss06.mp3" type="audio/mp3">
+            <source src="music/game_maoudamashii_2_boss06.ogg" type="audio/ogg">
+        </audio>
+        <audio preload="auto" id="win">
+            <source src="music/game_maoudamashii_5_town24.mp3" type="audio/mp3">
+            <source src="music/game_maoudamashii_5_town24.ogg" type="audio/ogg">
+        </audio>
+        <audio preload="auto" id="lose">
+            <source src="music/game_maoudamashii_6_dangeon23.mp3" type="audio/mp3">
+            <source src="music/game_maoudamashii_6_dangeon23.ogg" type="audio/ogg">
+        </audio>
+        -->
+
+        <!-- content start -->
+        <div id="contents_wrap">
+            <!-- バトルエリア -->
+            <table id="battle_area">
+                <tr><td>HP&nbsp;<meter min="0" value="" max="" id="enemy_meter"></meter></td><td class="al_right">HP&nbsp;<meter min="0" value="" max="" id="my_meter"></meter></td></tr>
+                <tr><td id="judgment_enemy"></td><td id="judgment_my" class="al_right"></td></tr>
+                <tr><td class="al_left"><img src="image/attack.svg" alt="攻撃！" id="enemy_attacked" /><img src="image/enemy.svg" alt="敵" id="enemy" /></td>
+                    <td class="al_right"><img src="image/attack.svg" alt="攻撃！" id="my_attacked" /><img src="image/my.svg" alt="自分" id="my" /></td></tr>
+            </table>
+            <!-- 動的に表示する部分 -->
+            <div id="main">
+                <section  v-repeat="items" id="questions{{$index}}" class="panel">
+                    <h1 class="al_center">{{category}}</h1>
+                    <h2><span>{{title}}</span></h2>
+                    <ul>
+                        <li><a href="#questions{{$index+1}}" v-on="click: onClick" class="{{collect == 'answer1' ? 'collect' : ''}}">{{answer1}}</a></li>
+                        <li><a href="#questions{{$index+1}}" v-on="click: onClick" class="{{collect == 'answer2' ? 'collect' : ''}}">{{answer2}}</a></li>
+                        <li><a href="#questions{{$index+1}}" v-on="click: onClick" class="{{collect == 'answer3' ? 'collect' : ''}}">{{answer3}}</a></li>
+                        <li><a href="#questions{{$index+1}}" v-on="click: onClick" class="{{collect == 'answer4' ? 'collect' : ''}}">{{answer4}}</a></li>
+                    </ul>
+                </section>
+                <!-- 初期画面 -->
+                <div id="home" class="panel">
+                    <a href="#questions0" id="start">START</a>
+                </div>
+                <!-- 終了画面 -->
+                <div id="questions2" class="panel">
+                    問題が切れました。
+                </div>
+            </div>
+            <!-- 正解・不正解表示部分 -->
+            <div id="view_answer_maru">◯</div>
+            <div id="view_answer_batsu">✕</div>
+
+            <!-- フッター -->
+            <footer id="footer"><table><tr><td><a href="menu.html" class="btn gray dib">&gt;&gt;&nbsp;トップメニュー</a></td><td id="copy">&copy;sararilfy&nbsp;&nbsp;音楽:魔王魂</td></tr></table></footer>
+        <!-- content end --></div>
+        <script>
+            new Vue({
+                el: '#main',
+                data: {
+                    items: [
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'JIS Q 9001(ISO 9001)に基づく品質マネジメントシステムの運用に関する記述のうち，適切なものはどれか。',
+                            answer1: '組織内に幾つかの活動があり，活動内容が部門によって異なっても，品質目標は統一して定めることが品質確保に効果的である。',
+                            answer2: '品質マニュアルが現実に守られないケースが多く発生した場合でも，一定期間継続してそのマニュアルを使用する。',
+                            answer3: '品質マネジメントシステムは国際規格に準じて構築されるので，プロセスの実施状況にかかわらず現状の品質マネジメントシステムの運用を継続すべきである。',
+                            answer4: 'よく吟味されて作成された品質マネジメントシステムでも，運用段階で不都合があった場合は，正規の手続を経て変更する。',
+                            collect: 'answer4'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'UCS-2(Unicode)を説明したものはどれか。',
+                            answer1: 'JISから派生したコード体系であり、英数字は1バイト、漢字は2バイトで表現する。',
+                            answer2: '主にUNIXで使用するコード体系であり、英数字は1バイト、漢字は2バイトで表現する。',
+                            answer3: 'すべての文字を1バイトで表現するコード体系である。',
+                            answer4: 'すべての文字を2バイトで表現するコード体系であり、多くの国の文字体系に対応できる。',
+                            collect: 'answer4'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'クライアントとサーバの上で動くプログラムの開発を、それぞれ異なったオブジェクト指向言語 (例えば Java と C++) で行うとする。このような異なった言語で開発したオブジェクト同士でも、クライアントからサーバ上のメソッドを呼び出すことを可能にする標準仕様はどれか。',
+                            answer1: 'CORBA',
+                            answer2: 'OMG',
+                            answer3: 'OMT',
+                            answer4: 'VRML',
+                            collect: 'answer4'
+                        },
+                        {
+                            category: '1-50 標準化関連',
+                            title: 'データ形式としてのCSVに関する記述として、適切なものはどれか。',
+                            answer1: '文字データ、数値データだけでなく、計算式や書式情報も記録できる。データ間の区切りとして、タブを使用する。',
+                            answer2: '文字データ、数値データと改行を含む幾つかの制御文字だけの情報を記録する。データ間の区切り記号として、空白文字、コロン、セミコロンを使用する。',
+                            answer3: '文字データ、数値データをコンマで区切り、レコード間は改行で区切って記録する。文字データは引用符でくくることもある。',
+                            answer4: '文字データだけでなく、画像やJavaアプレットなども記録できる。データ間の区切りの位置にタグと呼ばれるコマンドを挿入する',
+                            collect: 'answer3'
+                        },
+                        {
+                            category: '1-49 IT関連法規',
+                            title: '　不正アクセス禁止法による不正アクセス行為の処罰に関する記述のうち，適切なものはどれか。',
+                            answer1: 'コンピュータが被害を受けた場合に限り，不正アクセス行為として処罰の対象となる',
+                            answer2: 'コンピュータネットワークを介さずに，当該コンピュータのキーボードから他人のパスワードを不正に入力して侵入した場合も，不正アクセス行為として処罰の対象となる。',
+                            answer3: '他人のパスワードを，その保有者又はアクセス管理者に無断で流出させる行為は，不正アクセス行為として処罰の対象とはならない',
+                            answer4: 'パスワードなどのアクセス制御機能をもたないコンピュータの場合は，管理者の承諾を得ずに侵入しても，不正アクセス行為として処罰の対象とはならない。',
+                            collect: 'answer4'
+                        },
+                        {
+                            category: '1-49 IT関連法規',
+                            title: 'JIS Q 27001:2006 における ISMS の確立に必要な事項①～③の順序関係のうち，適切なものはどれか。①    適用宣言書の作成②リスク対応のための管理目的及び管理策の選択③リスクの分析と評価',
+                            answer1: '①→②→③',
+                            answer2: '①→③→②',
+                            answer3: '②→③→①',
+                            answer4: '③→②→①',
+                            collect: 'answer4'
+                        },
+                        {
+                            category: '1-49 IT関連法規',
+                            title: '経済産業省が策定した“ソフトウェア管理ガイドライン”はどれか？',
+                            answer1: 'アプリケーションソフトウェアの開発工程で，開発管理者が最低限実施すべき事項を取りまとめたもの',
+                            answer2: 'ソフトウェアの違法複製などを防止するために，法人，団体などがソフトウェアを使用するに当たって実施すべき事項を取りまとめたもの',
+                            answer3: 'ソフトウェアの品質保証のために，ソフトウェア管理者がチェックすべき事項をガイドラインとして示したもの',
+                            answer4: 'ソフトウェアパッケージの適正な利用を促進するために，ソフトウェア管理者が策定すべき管理規則や，ソフトウェアの利用手順のひな形を示したもの',
+                            collect: 'answer2'
+                        }
+                        /*,
+                        {
+                            category: '1-49 IT関連法規',
+                            title: '？',
+                            answer1: '',
+                            answer2: '',
+                            answer3: '',
+                            answer4: '',
+                            collect: 'answer4'
+                        }*/
+                    ]
+                },
+                methods: {
+                    onClick: function (e) {
+                        if(e.target.className == 'collect'){
+                            // 正解した時
+                            damageEnemy(); // 敵にダメージ
+                        } else {
+                            noDamageEnemy(); // 敵のーダメージ
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
+
+
